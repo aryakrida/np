@@ -1,27 +1,26 @@
-<!DOCTYPE html> <html>
-    <body style='background-color:#00000000;color:red'>
-    <style>
+&lt;body style=&#039;background-color:#00000000;color:red&#039;&gt;
+    &lt;style&gt;
         .gradient-text{
 font-family: Arial;
    background: -webkit-linear-gradient(30deg, #ff0000, #0000ff, #ff6600 );
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
 }
-    </style>
-<span class="gradient-text">
-<script>
+    &lt;/style&gt;
+&lt;span class=&quot;gradient-text&quot;&gt;
+&lt;script&gt;
 
-<!--
+&lt;!--
 
 /*
 Auto Refresh Page with Time script
 */
 
-//enter refresh time in "minutes:seconds" Minutes should range from 0 to inifinity. Seconds should range from 0 to 59
-var limit="0:30"
+//enter refresh time in &quot;minutes:seconds&quot; Minutes should range from 0 to inifinity. Seconds should range from 0 to 59
+var limit=&quot;0:30&quot;
 
 if (document.images){
-var parselimit=limit.split(":")
+var parselimit=limit.split(&quot;:&quot;)
 parselimit=parselimit[0]*60+parselimit[1]*1
 }
 function beginrefresh(){
@@ -34,41 +33,41 @@ parselimit-=1
 curmin=Math.floor(parselimit/60)
 cursec=parselimit%60
 if (curmin!=0)
-curtime=curmin+" minutes and "+cursec+" seconds left until page refresh!"
+curtime=curmin+&quot; minutes and &quot;+cursec+&quot; seconds left until page refresh!&quot;
 else
-curtime=cursec+"Station naam"
+curtime=cursec+&quot;Station naam&quot;
 window.status=curtime
-setTimeout("beginrefresh()",1000)
+setTimeout(&quot;beginrefresh()&quot;,1000)
 }
 }
 
 window.onload=beginrefresh
-//-->
-</script>
+//--&gt;
+&lt;/script&gt;
 
-<?php
+&lt;?php
 
 function getMp3StreamTitle($streamingUrl, $interval, $offset = 0, $headers = true)
 {
-    $needle = 'StreamTitle=';
-    $ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36';
+    $needle = &#039;StreamTitle=&#039;;
+    $ua = &#039;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36&#039;;
 
-    $opts = array('http' => array(
-            'method' => 'GET',
-            'header' => 'Icy-MetaData: 1',
-            'user_agent' => $ua
+    $opts = array(&#039;http&#039; =&gt; array(
+            &#039;method&#039; =&gt; &#039;GET&#039;,
+            &#039;header&#039; =&gt; &#039;Icy-MetaData: 1&#039;,
+            &#039;user_agent&#039; =&gt; $ua
         )
     );
 
     if (($headers = get_headers($streamingUrl)))
         foreach ($headers as $h){
-            $currentSection = explode(':', $h);
-            if (strpos(strtolower($h), 'icy-metaint') !== false && ($interval = $currentSection[1]))
+            $currentSection = explode(&#039;:&#039;, $h);
+            if (strpos(strtolower($h), &#039;icy-metaint&#039;) !== false &amp;&amp; ($interval = $currentSection[1]))
                 break;
         }
     $context = stream_context_create($opts);
 
-    if ($stream = fopen($streamingUrl, 'r', false, $context))
+    if ($stream = fopen($streamingUrl, &#039;r&#039;, false, $context))
     {
     $buffer = stream_get_contents($stream, $interval, $offset);
     fclose($stream);
@@ -77,21 +76,19 @@ function getMp3StreamTitle($streamingUrl, $interval, $offset = 0, $headers = tru
     {
     $currentSectionTwo = explode($needle, $buffer);
     $title = $currentSectionTwo[1];
-    return substr($title, 1, strpos($title, ';') - 2);
+    return substr($title, 1, strpos($title, &#039;;&#039;) - 2);
     }
     else
     return getMp3StreamTitle($streamingUrl, $interval, $offset + $interval, false);
     }
     else
-    throw new Exception("Unable to open stream [{$streamingUrl}]");
+    throw new Exception(&quot;Unable to open stream [{$streamingUrl}]&quot;);
     }
 
-   $nowplaying= (getMp3StreamTitle('https://play.kridaradio.com/radio/8330/permatafm', 16000));
-   echo "$nowplaying";
+   $nowplaying= (getMp3StreamTitle(&#039;https://play.kridaradio.com/radio/8330/permatafm&#039;, 16000));
+   echo &quot;$nowplaying&quot;;
 
 
-?>
-</div>
-</span>
-</body> 
-</html>
+?&gt;
+&lt;/div&gt;
+&lt;/span&gt;&lt;/body&gt;
