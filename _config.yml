@@ -1,1 +1,7 @@
-theme: jekyll-theme-cayman
+application: nowplaying
+version: 1
+runtime: php
+api_version: 1
+handlers:
+- url: /.*
+  script: index.php
